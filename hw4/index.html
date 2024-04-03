@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184 - HW 4</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e5bdb5dc-20c8-4df5-a540-a654a50e3b4d" class="page sans"><header><h1 class="page-title">CS 184 - HW 4</h1><p class="page-description"></p></header><div class="page-body"><p id="0c330401-9f53-4a9d-a8c3-013daed72e64" class="">Webpage: </p><figure id="463470b9-42b8-4b80-834d-240612b4b498" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/eeeb237e-a573-4c54-8622-3acac92dd5dd.png"><img style="width:400.8034433285509px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/eeeb237e-a573-4c54-8622-3acac92dd5dd.png"/></a></figure><h2 id="0bfc955b-cf26-4984-85a5-2856830b714e" class="">Overview</h2><p id="a4f013d4-cbf9-4313-b76f-6c22d3e84296" class="block-color-default"><mark class="highlight-default">In this project, we created a cloth mesh that is supported by masses and springs to simulate its properties of physics over time (falling, bending, creasing). It also allowed us to incorporate parameters like density, ks, and damping to manipulate the shape of the cloth. We also implemented collisions with other objects and itself. This prevents the cloth from clipping. Finally, we dipped our toes into shaders, implementing basic diffuse, blinn-phong, texture mapping, bump &amp; displacement mapping, and environment-mapped reflections, using the GLSL language. </mark></p><h2 id="43d8c288-0cf1-46dc-aec5-d5690c0be676" class="">Part 1: Masses and springs</h2><h3 id="e7ca1e6b-3eab-4e84-ba28-8770736d899c" class="">Images</h3><p id="5938ed8b-442e-46b4-a2f0-9ed591be6543" class=""><span style="border-bottom:0.05em solid">Wireframe</span></p><figure id="2799289b-3419-42e5-a059-b439e46f1391" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled.png"/></a></figure><figure id="efbeef58-0141-475b-a539-a0d61d03edef" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%201.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%201.png"/></a></figure><p id="3525030e-3e73-4f43-9ace-f0ffa15bdd7e" class="block-color-default"><span style="border-bottom:0.05em solid">Without Shearing</span></p><figure id="39b9485a-790f-4afb-8f71-70190b297e28" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%202.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%202.png"/></a></figure><p id="0aab1170-9ec0-48b1-a372-dad4368038e2" class=""><span style="border-bottom:0.05em solid">With Only Shearing</span></p><figure id="c26c9936-9cbe-4280-bf3f-36800598430a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%203.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%203.png"/></a></figure><p id="f20d7ea5-5ecb-4564-897d-69b8fbc0057f" class="block-color-default"><span style="border-bottom:0.05em solid">With All Constraints</span></p><figure id="06d86884-56e6-4194-a1f4-8db707d9492f" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%204.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%204.png"/></a></figure><h2 id="f0c6967d-9409-4d66-adcd-74d901a1d756" class="">Part 2: Simulation via numerical integration</h2><h3 id="01360c69-3d7d-41fe-a44d-c63464fa1af6" class="">Spring constant ks</h3><p id="d4560b8c-ed47-4439-b715-31679ccbc50d" class="block-color-default">Very low ks: The cloth falls and folds very slowly. There are also a lot of wrinkles in the cloth. The flaps of the cloth move continuously like it’s being blown on by a soft wind.</p><figure id="7975eb62-11a4-4313-a9ae-544d9edd41b5" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%205.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%205.png"/></a></figure><p id="684e0e9d-1b37-4d2c-99ec-9390295c77a0" class="">High ks: There’s very little folds and bending in the cloth. It also seems like the cloth withstands external forces better (gravity doesn’t weigh it down as much).</p><figure id="4b0ab518-8a99-49a7-b43b-3fad91b9ad9a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%206.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%206.png"/></a></figure><h3 id="92dda057-0d29-43f2-9f34-a60b386446e0" class="">Density</h3><p id="1b95bf60-e358-465a-a0e5-404767c350f0" class="">Low density: The edge between the two pinned points of the cloth don’t concave as much; it seems like the cloth isn’t heavily weighed down. This makes sense because the density is lower, so the cloth isn’t being pulled too strongly towards the ground.</p><figure id="bfbfdd94-9a7c-4701-bd51-8c74d64c5436" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%207.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%207.png"/></a></figure><p id="c255944f-0e3c-43f0-b9e9-86755f1ef5c0" class="">High density: The edge between the two pinned points of the cloth concaves in deeper. In contrast to low density, the cloth appears to be heavier, so the pinned points don’t hold up the non-pinned point masses as well.</p><figure id="9d2f29bd-6238-4124-8f87-c83b44468fa3" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%208.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%208.png"/></a></figure><h3 id="be05063e-70c8-4184-a9b8-4e168a244ae1" class="">Damping</h3><p id="36643693-53e4-4593-a25f-46f1debaf3c4" class="">Low damping: With very low damping, the cloth swings from side-to-side wildly. There’s also a lot of ripples that appear in the cloth.</p><figure id="2f3597a5-94d8-409e-93f2-ce8b4a8acba4" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%209.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%209.png"/></a></figure><div id="316b8451-8595-4985-a084-528dbc0e8975" class="column-list"><div id="513c5b6b-09c7-4881-b91b-97493e80374b" style="width:50%" class="column"><figure id="090b519f-03f6-4021-8660-26172c78aea4" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2010.png"><img style="width:331px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2010.png"/></a></figure></div><div id="0bc1ee3c-5d70-492f-9259-dd454d58ddf3" style="width:50%" class="column"><figure id="90bea601-40ed-4d50-88bf-0a7522d4e666" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2011.png"><img style="width:331px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2011.png"/></a></figure></div></div><p id="09eaba1f-529f-4b47-808b-2affdeb6098e" class="">High damping: With very high damping, the cloth falls slowly and very smoothly. It doesn’t swing at all and stops below the pinned points.</p><div id="d54d0112-b10e-424d-957d-77791b72fb76" class="column-list"><div id="b1a25429-c5e3-49c6-9bd0-809f4a4bddc4" style="width:50%" class="column"><figure id="bd45a3f1-6c38-4a33-9cf9-c29a13df361c" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2012.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2012.png"/></a></figure></div><div id="b3f90400-8cdb-4320-840b-c2bf4c7cb453" style="width:50%" class="column"><figure id="69e51183-4da7-474d-899e-5773d143094b" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2013.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2013.png"/></a></figure></div></div><h3 id="dd68c549-df41-4a0d-ae5a-976ec274fe6e" class="">pinned4 Image</h3><figure id="d36f6afd-d6b7-4333-a1a5-2d3d71115f05" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2014.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2014.png"/></a></figure><h2 id="b4b3c823-74a5-46ba-8142-590fbf616f06" class="">Part 3: Handling collisions with other objects</h2><h3 id="e9875b66-a9a7-4325-bfde-1e12744a31f9" class="">ks = 5000</h3><figure id="a1131b7a-6853-4d42-abf6-0da51c42c7d6" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2015.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2015.png"/></a></figure><h3 id="3e941bae-8cc5-4d8d-a3d0-4a00d2bfc3a5" class="">ks = 500</h3><figure id="e166834a-e7ba-46cd-acef-b2fe7fcd8694" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2016.png"><img style="width:1020px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2016.png"/></a></figure><h3 id="d47eaea9-952a-4c27-8914-3db94aff5e12" class="">ks = 50000</h3><figure id="b2790b0d-e655-42ea-aa49-0deedf63c74b" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2017.png"><img style="width:1020px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2017.png"/></a></figure><p id="aace2cdc-1a78-40d6-81ee-316a631a97a3" class="">Observation: The ks value has a direct relationship with the stiffness of the cloth. The lower ks value (500) covered the sphere and conformed to its round shape, leaving many pleats in the cloth. The middle value (5000) is still rounded at the middle-top of the cloth, but it doesn’t conform to the sphere as well. This makes the smooth top look like a small bump. The largest ks value (50000) is very stiff and has less folds. Most of the rounded shape is also gone.</p><h3 id="d06207ea-afc2-4487-af08-425df201c68f" class="">Plane</h3><figure id="115be673-05f4-4970-a307-c01bcb9666b6" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2018.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2018.png"/></a></figure><h2 id="c9ed0a57-7684-4e68-820e-0e8daf67e3de" class="">Part 4: Handling self-collisions</h2><h3 id="ad70de06-be72-43bb-9b2b-c1424986aebc" class="">Cloth Falling</h3><figure id="8b34ce5d-ddc9-4f9f-b06b-6b1e24010b38" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2019.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2019.png"/></a></figure><figure id="877f2707-1a38-44cb-a43f-7558b7395a57" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2020.png"><img style="width:1020px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2020.png"/></a></figure><figure id="f34d62bb-5f98-488b-ad78-139c760b3a69" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2021.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2021.png"/></a></figure><h3 id="1d4f3a92-4131-44a5-99f8-8fe0b45d67f0" class="">Varying Parameters</h3><p id="9b9d26d2-7220-49e0-8579-3a98c5e42122" class=""><mark class="highlight-yellow_background">Decreased density</mark> (5) creates smoother waves on the cloth as it falls. Its fallen state is also more spread out and has less defined creases.</p><div id="2d6ea80f-3ea8-471e-8e68-cf5a67554758" class="column-list"><div id="6097bf90-50c3-4ae6-807a-bf1b02f0cde4" style="width:50%" class="column"><figure id="2f87bf51-4394-45bb-8a43-c80917045ff5" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2022.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2022.png"/></a></figure></div><div id="eaab416b-d4a7-492f-9cf7-a003ce6e20ad" style="width:50%" class="column"><figure id="90c7ca97-d738-4c2f-976d-10cf22cc418f" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2023.png"><img style="width:331px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2023.png"/></a></figure></div></div><p id="c1c5e4d0-2726-4ec3-8a76-9a8dd5e3e864" class=""><mark class="highlight-yellow_background">Increased density</mark> (500) creates more folds and wrinkles in the cloth. It also falls more densely packed together.</p><div id="376b0262-baad-4e22-b3ce-8c932e2bb630" class="column-list"><div id="956cc98e-09d8-4293-9d7e-5be3f8f1a499" style="width:50%" class="column"><figure id="237b20f8-9ba4-487e-92bc-d532e09496a1" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2024.png"><img style="width:480px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2024.png"/></a></figure></div><div id="f5b92544-e149-42fe-9344-439d319ec577" style="width:50%" class="column"><figure id="a4a54a7d-9118-4a24-9929-5bc843c720f2" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2025.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2025.png"/></a></figure></div></div><p id="84193705-27d3-4b7b-980c-0c2ace19016f" class=""><mark class="highlight-yellow_background">Decreased ks</mark> (5) creates more folds as the cloth falls (a similar effect to increasing the density). However, its fallen state is both more spread out and bumpy.</p><div id="cfdfddd4-6915-419a-b6b7-4c98cfd83706" class="column-list"><div id="aa7d10d5-c810-4c64-b72b-e2e9148fbe04" style="width:50%" class="column"><figure id="3af2e7cd-8182-47c5-9a42-2842089e1259" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2026.png"><img style="width:1019px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2026.png"/></a></figure></div><div id="ec973460-6051-461b-8c67-df06758465ce" style="width:50%" class="column"><figure id="a69a21f3-3731-4500-b59e-ef6d41c9f158" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2027.png"><img style="width:1020px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2027.png"/></a></figure></div></div><p id="3e75f619-a9fe-4a3e-bdc2-fe1385114abf" class="">Increased ks (10000) is generally the same as the default value of 5000 as it falls. The cloth’s fallen state is more spread out with smooth, defined creases.</p><div id="584b30b1-63e8-4ca3-ae53-17d047d841e9" class="column-list"><div id="134d8eee-a9f4-4bf1-ab11-b90f765b827e" style="width:50%" class="column"><figure id="2a9c804b-4d86-4d67-ac29-9eaa8efd5a2a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2028.png"><img style="width:1020px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2028.png"/></a></figure></div><div id="3e2dc05a-9549-4421-beb3-0798699b01cb" style="width:50%" class="column"><figure id="cae67f42-4c3b-408a-b403-3f217fe98b06" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2029.png"><img style="width:1022px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2029.png"/></a></figure></div></div><h2 id="467fd99a-9dce-462c-b54a-3a71c858f231" class=""><strong>Part 5: Shaders</strong></h2><p id="57b98314-b3ea-4b34-b12f-4626fc51e32c" class="">A shader program is a isolated program that takes inputs (typically vertex positions, normals, color, etc…) and manipulates them for a certain output. It is used to change the appearance of an object by adjusting it’s lighting and color.  Additionally, shader programs are run on the GPU as opposed to the CPU enhancing its performance. Here we used vertex and fragment files to implement the shaders. A vertex shader takes in some inputs (positions, normals, etc..), modifies, and outputs a final position. Vertex shaders are used as inputs to fragment shaders, which take these inputs calculated by the vertex shader to compute a final output color for the shading.  </p><h3 id="ae960f7b-7394-43bf-84e4-24175a6debe3" class="">Blinn Phong Shading</h3><p id="720ed9d2-32e7-4cdc-bd1e-c93fb6d4d031" class="">Here is the equation for the Blinn-pphong shading</p><figure id="d4350209-8cf9-42ed-aa50-6051e31cc6d6" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2030.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2030.png"/></a></figure><p id="0f9eb606-a385-4555-a0a6-196c74f43adf" class="">The Blinn-Phong model is a modification to the Phong model and makes up for its faults by introducing a different set of vectors for its computations such as the half-angle vector. The half-angle vector is the direction the surface normal needs to face in order to show a specular reflection. The blinn phong model accumulates light from the following components: ambient light, specular light, and diffuse light.</p><p id="a849bc55-32b4-4396-8357-82ce561f3161" class="">
+</p><p id="595e20d4-f6e7-4f0a-bbd4-c03c4b88d03b" class="">Below we have the four variations of the Blinn-Phong shading model:</p><div id="0ea1850d-dc6b-406d-9d7d-18ba4762435f" class="column-list"><div id="c4cdc085-36ae-448d-b561-d8244ef88a38" style="width:50%" class="column"><figure id="7d9c0f3e-9c1f-46b4-a31c-1bdc18c4db69" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2031.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2031.png"/></a><figcaption>:Ambient component</figcaption></figure></div><div id="090c2d1a-33ea-4f28-a9c8-b15b5d6fd02e" style="width:50%" class="column"><figure id="17a55936-567a-426e-b421-df227e3cc848" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2032.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2032.png"/></a><figcaption>Diffuse Component</figcaption></figure></div></div><div id="6e910dcb-141f-4ab5-a12d-ddcec8055c12" class="column-list"><div id="d6d230ea-048e-49f6-8804-94e54daaaeb4" style="width:50%" class="column"><figure id="78970931-c67c-44de-b0b2-75c852bc513b" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2033.png"><img style="width:1253px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2033.png"/></a><figcaption>Specular component</figcaption></figure></div><div id="3211ddac-011e-4cdc-b7f6-538c1497c337" style="width:50%" class="column"><figure id="843d09d2-f030-4680-ab02-103585b1267c" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2034.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2034.png"/></a><figcaption>Full Blinn Phong shading</figcaption></figure></div></div><p id="73061834-c8c4-4765-a8e7-83c1aaebdd6b" class="">
+</p><h3 id="7ce0bdee-70a1-4b90-904d-d42afd18143e" class="">Texture Mapping</h3><div id="9b951b17-4d70-4fc4-9f71-ba29d8b73332" class="column-list"><div id="c53e69cf-ff94-41e9-945e-2d348385a229" style="width:50%" class="column"><figure id="778a8095-3598-4bb6-b0cf-6d192f2db03f" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2035.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2035.png"/></a><figcaption>Texture map before fall</figcaption></figure><p id="b77774be-0ada-4efc-aa6a-a6b465661eca" class="">
+</p></div><div id="1ed2971d-327b-45d0-99ad-8c72ef93a1ad" style="width:50%" class="column"><figure id="25cbb042-fe56-4483-a3b5-a51811a2407a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2036.png"><img style="width:1264px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2036.png"/></a><figcaption>Texture map after fall</figcaption></figure></div></div><p id="8a25e74c-d69b-4117-b037-7c1840d45898" class="">
+</p><h3 id="c6c9b18a-8bef-4c1f-ade8-c2197ab68bda" class="">Bump mapping and displacement</h3><p id="2d4938c6-52a8-4923-bf87-bffb5fb0b4b0" class="">
+</p><p id="51506d72-0113-4cf8-a235-dfa6235641a8" class=""><strong>The bump and displacement map with default texture</strong></p><div id="2fc03f99-0ce6-4b38-93b0-501b0693ea2c" class="column-list"><div id="469e6fae-581f-4b8c-b2bf-af82fd9cbc04" style="width:50.000000000000014%" class="column"><figure id="2d25d400-6fcb-4db3-b8b3-0d1502429bb1" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2037.png"><img style="width:1256px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2037.png"/></a><figcaption>bump before fall</figcaption></figure></div><div id="f43eb726-85b5-429f-a630-ee3df1cc5212" style="width:50%" class="column"><figure id="04975156-c6fc-4591-98e3-4290cc828489" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2038.png"><img style="width:1276px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2038.png"/></a><figcaption>displacement before fall</figcaption></figure></div></div><p id="bdd9ed4a-f4c6-4e0c-beda-37e8af23e772" class="">
+</p><div id="9bceceae-da30-4297-9787-65948f0cbcb6" class="column-list"><div id="5b27408e-c058-4611-8da0-e662d700b5c8" style="width:50%" class="column"><figure id="33e52261-5def-4461-9750-25ad14e31dcb" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2039.png"><img style="width:1248px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2039.png"/></a><figcaption>Bump after fall</figcaption></figure><p id="de07c7b1-75b6-4f84-a229-f020f0b18564" class="">
+</p></div><div id="d8eeb8c1-985b-4832-b8c5-5dcc5d83e5ce" style="width:49.99999999999999%" class="column"><figure id="8c8ba774-76c8-4fca-a30a-34393a6f23cc" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2040.png"><img style="width:1272px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2040.png"/></a><figcaption>Displacement after fall</figcaption></figure><p id="a83bbcce-5b2d-4745-be37-859059b021ef" class="">
+</p></div></div><p id="d9a99c60-a0cc-4b9b-831c-f32e609c4c36" class=""><strong>The bump and displacement map with custom texture</strong></p><div id="3dd1fef9-4ac9-4dec-a071-f5c9083540db" class="column-list"><div id="8a0875b9-2cd3-44a3-bd3d-af73a043d24d" style="width:50.000000000000014%" class="column"><figure id="ed1a8b03-1e4b-4ced-8f0b-5ed654c62c0d" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2041.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2041.png"/></a><figcaption>Bump map w/ texture 1</figcaption></figure></div><div id="1a1b3bac-4fa6-43cf-9d78-aefffede37a6" style="width:50%" class="column"><figure id="c57e4083-87ce-4c05-8c78-9fcab9a0908f" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2042.png"><img style="width:1256px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2042.png"/></a><figcaption>Displacement w/ texture 1</figcaption></figure></div></div><div id="aa2e2a6b-b7b3-432c-881e-a91a685e78d1" class="column-list"><div id="7cdcbfcf-c031-44ac-ba78-3b302dada036" style="width:50.000000000000014%" class="column"><figure id="1d012984-7612-47d2-97fd-df448d6751fe" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2043.png"><img style="width:1270px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2043.png"/></a><figcaption>Bump map w/ texture 2</figcaption></figure><p id="9d52a77f-580c-4bc4-abd2-e03c1f3a6d52" class="">
+</p></div><div id="800f3ccf-c03f-45ca-b1d5-07e00ab3fa56" style="width:50%" class="column"><figure id="8aa2e14e-1c92-40ac-86a5-c4d69100629b" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2044.png"><img style="width:1270px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2044.png"/></a><figcaption>Displacement w/ texture 2</figcaption></figure></div></div><p id="7e9205fd-cc4b-4eac-b24a-3b6e7b4d6857" class=""><strong>Bump and displacement maps with different parameters</strong></p><div id="8239ab2a-476f-4b9b-b793-73e5e3b49a4f" class="column-list"><div id="49e1115d-d9d6-4843-88f3-25549144f3e4" style="width:50%" class="column"><figure id="8343a0cf-3161-4e3c-a0f4-f18db1208f9a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2045.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2045.png"/></a><figcaption>Bump -o 16 -a 16</figcaption></figure></div><div id="fa55dfd4-f372-4e14-9326-a5790a86fd78" style="width:50%" class="column"><figure id="7adad8bc-d705-429b-a192-7c74a473086a" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2046.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2046.png"/></a><figcaption>displacement -o 16 -a 16</figcaption></figure></div></div><div id="964147bd-6ce3-4777-9cfb-ab77e2ed62ae" class="column-list"><div id="4d862f50-e7f0-44ba-bae4-091f4623c791" style="width:50%" class="column"><figure id="d67f9456-4a9c-4f22-9393-c1bb1178ef67" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2047.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2047.png"/></a><figcaption>Bump -o 128 -a 128</figcaption></figure></div><div id="cd46778b-0657-4f94-8029-5c43766a0107" style="width:50%" class="column"><figure id="00ed98bc-5a5b-48d2-9935-167ff55d8e79" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2048.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2048.png"/></a><figcaption>displacement -o 128 -a 128</figcaption></figure></div></div><p id="7cbef994-5760-4cce-bb1d-37817d5d9edd" class="">
+</p><h3 id="6e84a36a-e82d-490a-9e9c-7d493741af00" class="">Mirror</h3><div id="17125425-3c87-4df2-b8c0-a9c6b37594f7" class="column-list"><div id="029cef1f-3f5d-40e6-876b-a7f91de9ff2f" style="width:50%" class="column"><figure id="1d9671de-253d-4371-8517-f8df930f2885" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2049.png"><img style="width:708px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2049.png"/></a><figcaption>Mirror before fall</figcaption></figure></div><div id="91b873f3-ae24-433f-b119-8f2ed8a51791" style="width:50%" class="column"><figure id="571f9859-c54d-4386-ae65-15878eee4eca" class="image"><a href="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2050.png"><img style="width:331px" src="CS%20184%20-%20HW%204%20e5bdb5dc20c84df5a540a654a50e3b4d/Untitled%2050.png"/></a><figcaption>Mirror after fall</figcaption></figure></div></div><p id="79421850-a80d-4df6-8b41-928081ed1ce2" class="">
+</p><p id="42d5b0de-133d-4e49-a502-eafe609a9f5c" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
