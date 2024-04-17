@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>NoRestForTheLiquid Milestone</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="956a904e-52ee-4979-bb9c-8d802890e4a3" class="page sans"><header><h1 class="page-title">NoRestForTheLiquid Milestone</h1><p class="page-description"></p></header><div class="page-body"><p id="69dd3e42-741b-494e-9f2b-2a42b8564920" class="">Webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-sp24-hailey-tran-9/final_proj/index.html">https://cal-cs184-student.github.io/hw-webpages-sp24-hailey-tran-9/final_proj_milestone/index.html</a></p><h1 id="e76cd69e-ce60-4ca0-91a3-c13dd20a3819" class="">Accomplishments &amp; Preliminary Results</h1><p id="0566ebe3-e8ba-4363-b03b-132ca487c5b2" class="">So far, we’ve been able to implement a basic fluid simulator with sphere particles representing the water’s body. The particles are able collide with spheres and not fall through the ground.</p><figure id="85f34d89-72ab-4ca5-8b96-9b1eda92b5f6"><div class="source"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/sphere_collision.mp4">https://prod-files-secure.s3.us-west-2.amazonaws.com/4ff6d651-e209-4c96-8955-86e60a8d524c/88e45585-436c-47ce-81ce-54cb20da7f62/sphere_collision.mp4</a></div></figure><p id="ba9a6d1b-814c-417f-a5cc-a6e04f9c1273" class="">
+</p><p id="831c2b36-2158-44dd-b54f-fd172ec74e3f" class="">Collision between the particles and cubes is a work in progress. The initial collision is detected, but the particles sink into the cube as time progresses.</p><figure id="c100e82c-d1e3-41db-9a7b-e19262807e10"><div class="source"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/2024-04-16_23-16-43.mp4">https://prod-files-secure.s3.us-west-2.amazonaws.com/4ff6d651-e209-4c96-8955-86e60a8d524c/605679ab-c711-4de5-ba7a-cccbb5434028/2024-04-16_23-16-43.mp4</a></div></figure><p id="dd1ef67e-9e19-4fe2-85e4-af3af6cfad58" class="">
+</p><p id="f3c28cfc-c269-4b53-aefe-275e67403cb9" class="">In order to accomplish this, we’ve done some research on the principles and mathematics of a <strong>Smoothed Particle Hydrodynamics (SPH)</strong> fluid simulation. The referenced paper “Particle-Based Fluid Simulation for Interactive Applications” by Matthias Müller, David Charypar and Markus Gross (linked under the Resources header) was incredibly helpful. The primary formulas that we derived from this paper, along with their descriptions and why we’re using them, are shown below.</p><h2 id="0ac3ad3d-1684-46e9-82de-e621d03519b2" class="">Smoothing Kernels</h2><p id="03e7f348-edf9-451e-bf8c-c67af1425484" class="">Smoothing kernels are used in order to reduce the amount of “craziness” each particle has. The <code>W(r,h)</code> function (the smoothing kernel) returns a scalar value that determines the influence a particle has on its local neighbors.</p><h3 id="e8504043-515f-4098-92bd-36eb05a97843" class="">General Kernel</h3><figure id="644d8a63-5c6a-4bcc-a63d-31125a6ff688" class="image"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled.png"><img style="width:467px" src="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled.png"/></a></figure><p id="7694274c-dd5c-4046-8322-3c88ad67fc7b" class="">Used for general cases.</p><p id="c1c4b221-5ab0-49de-b489-96ab1a6da069" class="">Where h is the core radius, and r is the difference in particle position.</p><h3 id="ced618a2-b178-4712-8885-d709f633cbdf" class="">Spiky Kernel</h3><figure id="dc0ea8c1-a108-4326-853f-6842fedfb681" class="image"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%201.png"><img style="width:505px" src="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%201.png"/></a></figure><p id="81449ad8-f52a-46ec-9324-dd578ca0af04" class="">A spiky kernel is used for the computation of pressure forces. This is needed because pressured particles tend to clump up tightly, meaning little (but non-zero) repulsion should be applied. The general smoothing kernel doesn’t reflect this behavior.</p><h3 id="f56d2b19-301d-4f9b-a383-c5142caac2f4" class="">Viscosity Kernel</h3><figure id="e8f46072-bcfb-444e-b280-207d3fdff373" class="image"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%202.png"><img style="width:496px" src="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%202.png"/></a></figure><p id="e1c14a28-f8f9-4f86-8b60-7cb0e0675303" class="">A kernel that is used for the computation of viscosity forces. This kernel fixes the general smoothing kernel’s issue with negative values resulting from its Laplacian.</p><h2 id="9d3ddd03-43aa-4c6b-b3bc-478ec3df5600" class="">Density</h2><figure id="8b713678-d6b2-47e8-b602-2c260422ae71" class="image"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%203.png"><img style="width:474px" src="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%203.png"/></a></figure><p id="6383017f-35ae-48fb-9385-8a9588cdbd1f" class="">m: Particle Mass</p><p id="67c7e5d9-5dea-49b3-9dee-741958373ead" class="">This is the equation to calculate the density of each particle. Note that this is mostly heavily reliant on its neighbors <code>j</code> and the distance between the two particles.</p><h2 id="c0fc122d-8987-4bfd-9cc4-79c3446582a3" class="">Pressure</h2><figure id="f044ded6-cce3-491f-a63a-1d9283b5105f" class="image"><a href="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%204.png"><img style="width:452px" src="NoRestForTheLiquid%20Milestone%20956a904e52ee4979bb9c8d802890e4a3/Untitled%204.png"/></a></figure><p id="8689c0d9-38e9-435d-8c22-53c08233dbe1" class="">k: Gas Constant, p: Density, p0: Rest Density</p><p id="ad3db29e-6141-411f-b7e2-7f029feb5a68" class="">Pressure calculation of the particle.</p><h1 id="fbcde8ba-ada8-4b89-a80d-52667f0bce8e" class="">Reflection</h1><h3 id="be4b3ae0-759a-4cee-bc29-b021f9436d23" class="">Hurdles</h3><p id="22267eb8-9c21-4b0b-8a2c-4a3859936995" class="">Currently, our team is concerned about generalizing the collision system between the fluid simulation and irregular polygons. Our current solution checks the particles’ distance from singular objects (i.e. the particles against a sphere). This would be fine if the obstacles in our game were perfect shapes, but this isn’t ideal, as we’d like to design levels that feel and appear less artificial and clean-cut.</p><h3 id="33eac991-04af-4cde-926b-f778ebba8276" class="">Breakthroughs</h3><p id="56378343-806d-4e7a-9970-5690542c41ed" class="">One of the biggest breakthroughs during the entire process was understanding how to implement the smoothing kernels for pressure and viscosity. Without them, we were confused as to why the particles were acting sporadically, and it was because particles that were too far to realistically affect other particles were influencing its behavior.</p><p id="9b467b91-e922-493d-aad2-f04ccf8937dc" class="">
+</p><h1 id="1c2c1778-b03f-4be8-a13c-5c3fcb23555e" class="">Milestone Video</h1><figure id="ba3d206c-7183-4515-86ba-64c60058d5fd"><div class="source"><a href="https://www.youtube.com/watch?fbclid=IwAR3uBTtQEdh-20nhrJjdaMILjvTEejcnj_GMIzwav54sN6-bHTcX4hGt7wM&amp;v=ycrEzEBSBUk&amp;feature=youtu.be">https://www.youtube.com/watch?fbclid=IwAR3uBTtQEdh-20nhrJjdaMILjvTEejcnj_GMIzwav54sN6-bHTcX4hGt7wM&amp;v=ycrEzEBSBUk&amp;feature=youtu.be</a></div></figure><p id="ca3fe014-bcf3-4d5d-90c4-967d87da0acc" class="">Link: <a href="https://www.youtube.com/watch?v=ycrEzEBSBUk">https://www.youtube.com/watch?v=ycrEzEBSBUk</a></p><h1 id="b1d85656-9cdd-4dda-b3a9-2078cfd91ee4" class="">Presentation Slides</h1><figure id="c655721b-5e19-47d1-96df-fc847b162a10"><div class="source"><a href="https://docs.google.com/presentation/d/1D0GgYpZVSG-NajbqLRGn7hJRkiVbx9A_IttChzYmZiA/edit#slide=id.g2cd0c3aea72_0_16">https://docs.google.com/presentation/d/1D0GgYpZVSG-NajbqLRGn7hJRkiVbx9A_IttChzYmZiA/edit#slide=id.g2cd0c3aea72_0_16</a></div></figure><p id="fda91ada-d1e9-4ca4-bdc3-47c23463c7e7" class="">Link: <a href="https://docs.google.com/presentation/d/1D0GgYpZVSG-NajbqLRGn7hJRkiVbx9A_IttChzYmZiA/edit#slide=id.g2cd0c3aea72_0_16">https://docs.google.com/presentation/d/1D0GgYpZVSG-NajbqLRGn7hJRkiVbx9A_IttChzYmZiA/edit#slide=id.g2cd0c3aea72_0_16</a></p><h1 id="3bf66ea7-24d5-429d-9610-d500745d7ac6" class="">Next Steps</h1><ul id="c9b58ccc-81e3-4df5-adaa-a43c34f597eb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Implement liquid shader (turns particles to liquid)</span><div class="indented"></div></li></ul><ul id="49aa2f55-91a0-41f2-879b-f5d78d5e30b8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Implement more collisions between objects (cubes, irregular objects, etc.)</span><div class="indented"><ul id="f9c11968-0015-4711-896c-82c0baeb5ac6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Implement realistic collisions with moving objects</span><div class="indented"></div></li></ul></div></li></ul><ul id="f1d29c1c-99b9-47cf-9843-2b5925264105" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The website also mentions surface tension. However, this will probably be a stretch goal because of its low impact on the forces between particles.</span><div class="indented"></div></li></ul><ul id="ff8d540f-e339-489f-9650-7fa80a07f2e4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Make a game</span><div class="indented"><ul id="e102854e-576d-474c-8ffd-af7138388d03" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Implement game mechanics including:</span><div class="indented"><ul id="a75c315d-bcb5-4d7c-b09f-2616620a90f9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">A “hose” for unlimited water</span><div class="indented"></div></li></ul><ul id="8b4ba4dc-0335-481b-92d8-8d8ac5501277" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Detection system to see if water is successfully transported somewhere</span><div class="indented"></div></li></ul></div></li></ul></div></li></ul><h1 id="0ad69ef5-9787-4cd4-af67-48bc17998d9b" class="">Updated Schedule</h1><p id="c1939863-0b43-4682-b4f9-45540ebb418b" class=""><strong>Week 3: April 16-23</strong></p><ul id="8c02862c-d04b-43f0-b690-6c9e4e1226a5" class="bulleted-list"><li style="list-style-type:disc">Implement actual game mechanics</li></ul><ul id="f5dae0d0-a0d0-4e9c-b377-8ac41707fc3e" class="bulleted-list"><li style="list-style-type:disc">Implement fluid and other textures to our simulation</li></ul><ul id="dcb325db-b811-42da-a30f-97bf588e7d6a" class="bulleted-list"><li style="list-style-type:disc">Add collision for more objects</li></ul><p id="19fbaef2-8ea8-4021-8537-ab9382518318" class=""><strong>Week 4: April 23-30</strong></p><ul id="7dbcdf2d-58f6-4b37-9195-c338ba7c92a0" class="bulleted-list"><li style="list-style-type:disc">Finish any last stretch goals within the first couple days of week 4</li></ul><ul id="d50cad95-c613-4a65-a00f-c93c8c14a266" class="bulleted-list"><li style="list-style-type:disc">Write up the presentation slides / presentation</li></ul><ul id="9b654e7f-f776-408a-992f-39260e4791bb" class="bulleted-list"><li style="list-style-type:disc">Finish report and recording all deliverables</li></ul><h1 id="7610de9f-f38d-4c3b-ad0b-48f9b9c2c774" class="">Resources</h1><ul id="2dd05c5a-4e56-4373-ae4d-b9f009ee0a77" class="bulleted-list"><li style="list-style-type:disc"><a href="https://matthias-research.github.io/pages/publications/sca03.pdf">https://matthias-research.github.io/pages/publications/sca03.pdf</a></li></ul><ul id="f0a029af-5b01-432b-a9a2-4e7e3bfafa17" class="bulleted-list"><li style="list-style-type:disc"><a href="https://youtu.be/rSKMYc1CQHE?si=2S_9F3qfif0FYqxp">https://youtu.be/rSKMYc1CQHE?si=2S_9F3qfif0FYqxp</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
