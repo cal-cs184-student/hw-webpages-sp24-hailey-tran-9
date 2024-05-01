@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184 Spring 2024 Final Writeup</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d8851b23-7d88-46ba-a6b5-e3dbd0c517b3" class="page sans"><header><h1 class="page-title">CS 184 Spring 2024 Final Writeup</h1><p class="page-description"></p></header><div class="page-body"><figure id="daca0611-2469-47e3-8bd9-f1321c429ba3" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/liquid_logo.png"><img style="width:288px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/liquid_logo.png"/></a></figure><h1 id="40d5ee93-9f54-4d94-9be5-6a2f1de1493d" class="">Title: No rest for the liquid</h1><h3 id="644d8971-77b6-4367-a3ce-8432d73549b9" class="">Team Members: David Ban, Jackie Dai, Hailey Tran, Jesse Lutan</h3><p id="abe2f4e6-559b-45e9-acaa-63b8e1b4fa80" class="">
+</p><p id="4574d778-6518-444d-b3ed-0462cc9e6cec" class="">Youtube Link:<a href="https://youtu.be/1dpUuDcknkU">https://youtu.be/1dpUuDcknkU</a></p><h2 id="8be7d518-e106-46ae-a50e-c76b9619a4ca" class="">Abstract</h2><p id="5a8fddc7-f8f1-4680-a08f-0cab91d2bf1d" class="">Fluid simulation is an already well-discussed problem. To expand on this increasingly-complex topic, this project aims to create a video game that will be able to realistically render water in real time that will react to various forces over time. The player will be able to place objects that can then interact with the water in a three dimensional way. Rather than focusing solely on accuracy of fluid simulation, we hope to cut down and optimize specific steps in order to have a real-time simulation for our game.</p><h2 id="f2fd0bec-e941-4818-a1eb-b335bc2c8c9c" class="">Technical Approach</h2><p id="f87a9b5d-eb19-404b-a937-2a1e88030e6a" class="">
+</p><p id="048a038d-1743-4ae6-9795-6d56c697124b" class="">The main aspect of this game is obviously the fluid simulation. To generate this, we used a Forward-Euler simulation of particles. The environment was created from scratch in Unity, and utilizes the computer’s GPU to speed up the process. </p><p id="d1a05018-2402-47c4-872c-2393e45fd917" class="">
+</p><p id="511eb486-310f-4fd0-9dd3-419923a88fd7" class="">Each <code>Particle</code> contains 5 descriptors: Pressure, Density, Current Force, Velocity, and Position. With these, we are able to predict approximately where the particle will be in the next time step, along with how it affects other particles. One of the key benefits of working in Unity is that we are able to edit and save hyperparameters such viscosity constants, particle masses, without long build times. </p><p id="f875c979-7cf6-407f-9c3d-d8f14c73ae09" class="">
+</p><h3 id="ee833d34-579a-422d-a18c-31dfbf8bfb06" class=""><strong>Particle Simulation</strong></h3><p id="ea63a011-2302-4c45-80c5-b0ee9c69425b" class="">Following the steps of Müller [1], we model fluids with particles based on a particles pressure and viscosity. While the paper does also include surface tension, we decided that it would not impact our model enough to warrant the computational cost on the GPU, since real time was more important to us than complete accuracy.  However, as mentioned in class during the physical simulation lecture, Forward-Euler can lead to unstable results due to accumulating errors. To that end, we also implemented the several suggested smoothing kernels that build off of the Smoothed Particles Hydrodynamics (SPH) and applies it to fluid. The smoothing kernels are described below.</p><p id="e1c528e9-64f1-45ea-9155-d5d479fba65f" class="">
+</p><p id="56a9508c-cb28-4c57-bab3-1134bc85de5f" class=""><strong>General Kernel</strong></p><figure id="651774f6-d05e-46b3-8983-677a43c06490" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled.png"><img style="width:467px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled.png"/></a></figure><p id="eb7c1ee7-1461-4e66-bf58-1f326e93c675" class="">Used for the general case of density, where h is the core radius, and r is the difference in particle position.</p><p id="a8559b9d-2eec-4d2c-9836-21ee186a9932" class=""><strong>Spiky Kernel</strong></p><figure id="f60d20d7-289d-426a-ae60-6effe32c36f6" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%201.png"><img style="width:505px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%201.png"/></a></figure><p id="7b4a74a5-45a5-4945-84bb-327deb940e75" class="">A spiky kernel is used for the computation of pressure forces. This is needed because pressured particles tend to clump up tightly, meaning little (but non-zero) repulsion should be applied. The general smoothing kernel doesn’t reflect this behavior.</p><p id="f0917c38-a24a-46ff-9259-f3ccf4de69f6" class=""><strong>Viscosity Kernel</strong></p><figure id="50191cec-f983-4448-9d4f-3b0f4986bb31" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%202.png"><img style="width:496px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%202.png"/></a></figure><p id="a2aee9e1-e4ce-4721-a196-45f7d4bad6b4" class="">A kernel that is used for the computation of viscosity forces. This kernel fixes the general smoothing kernel’s issue with negative values resulting from its Laplacian.</p><p id="439d8d5a-192b-467f-b841-64939f73eba8" class="">
+</p><p id="c0c87a82-064e-4a3a-9e64-639343fd0f23" class="">
+</p><h3 id="4300d506-2dd2-4fd7-a473-1485a28be97d" class=""><strong>Object Collision</strong></h3><p id="878fd349-e589-4886-9c36-3659f76e0f1d" class="">Since we are aiming to have interactivity within our fluid simulations, the particles must interact with other objects and not itself and its neighboring particles. This took much of our brain power, and coding the interaction of particles with non-spherical objects caused many headaches.</p><p id="8a41974b-10dc-41ae-b169-401955f8cf49" class="">
+</p><p id="b8d3206f-21da-490b-af88-66285064bdab" class=""><strong>Spherical Collisions</strong></p><p id="164acd57-a966-455f-8854-1e5c9007af85" class="">Spherical collisions were very similar to the mesh project, as we had to see if any of the particles are within the radius of the sphere. If so, we need to push them out. Nothing out of the ordinary. </p><figure id="1074de43-9a1d-4156-9c37-079a386835fb" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/particles-sphere.gif"><img style="width:599.9715576171875px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/particles-sphere.gif"/></a></figure><p id="fb44bb2b-5ac3-4d2f-9a22-6679ab32b7cf" class="">
+</p><p id="a20d3d9f-3407-4fa2-914c-6f205a4fdbf4" class=""><strong>Cubic Collisions</strong></p><p id="41189475-904f-4c23-ac21-d4292d5e00e5" class="">Cubic collisions required much more thought than spherical, as it requires more than one check. Furthermore, we wanted to generalize the collision boxes to include all three axes of rotation as well. </p><p id="df73f87d-3cce-4875-aa6c-976b50a55e7e" class="">
+</p><p id="8ba280ca-21c3-4dcd-bfde-2e525f95cc65" class="">This meant implementing the rotational matrix from lecture, along with defining the faces of the cube through plane definitions (a point and a normal vector). This also meant that we would be converting between two different axes, one for the world, and one for the cube. With this information, we can then check if a point is inside of the cube, and then from there determine where to push the vector. We would also have to reflect the velocity as it exits, which was very similar to the light reflection we implemented from the ray reflection.</p><p id="9f5a9459-3a85-4aa8-8ddd-5967b4d747d0" class="">
+</p><figure id="e84d1bb5-4d2d-48df-9193-df1d2d1033ad" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/particles-cube.gif"><img style="width:576px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/particles-cube.gif"/></a></figure><p id="8852b8f4-4a06-4d7a-b0d4-06d71314b72d" class=""> </p><h3 id="9e7d6992-abd5-4349-b257-b705cb230562" class="">Liquid Shader</h3><p id="78f99ff7-f7a9-4f17-bdb3-4a9aa3c8c0aa" class="">As stated before, we weren’t looking for the most realistic water, and thus decided to just go with a constant colored water much like the water in Where’s My Water. To do this, we utilized RayMarching and Smooth-minimums to create a believable liquid without having to worry about complex shading and long rendering times.</p><p id="872b48ff-83b5-4958-b3db-f4c9b668ae8e" class="">
+</p><p id="a6203ccb-3db6-4ac7-9f8d-ec6dbb009291" class=""><strong>Raymarching</strong></p><p id="55fda2fd-624d-4bbf-bb69-f3578a566f34" class="">Raymarching is a rendering technique used by tracing rays, much like our project. However, unlike traditional rendering methods, it does not rely on predetermined equations for geometry. Instead, it iteratively “marches” along the ray and determines if a ray intersects with objects in the scene. This allows us to render complex shapes with relatively simple code, which is necessary for smooth-minimums.</p><p id="0a7b2732-c0f9-4618-bb2e-b19a44fbb918" class="">
+</p><p id="0c68aea8-fcb4-42a8-b207-e4006d4d491f" class="">SDFs allow us to return the shortest distance between a point and some surface, with the sign of the returned value indicating whether the point is inside or outside of the surface. Although trivial for objects such as spheres, it can get complex with other objects - luckily, for this project, we are only concerned about spheres. With this, we are able to determine which object is the closest from the point we are on along ray. We then increment that distance along the ray, and repeat until the ray collides with the object.  </p><figure id="ff25fb52-8a12-4194-8f3e-40ec961ef479" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%203.png"><img style="width:384px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%203.png"/></a></figure><p id="b5dd8fab-cc29-4572-92c9-142c3d94b1f1" class=""><em><span style="border-bottom:0.05em solid">Example 2D Raymarching [2]. Each p value indicates another step, with the green circles demonstrating the closest intersection at each step.</span></em></p><p id="a7c66ac5-dc2e-4509-b4b3-fb4e97875be2" class=""><strong>Smooth-minimums</strong></p><p id="74b77f76-04eb-496e-8be6-b7345282ceb6" class="">Smooth-minimums allow us to find the minimum value between functions in a smooth and continuous manner. This is employed in our case to create transitions between particles in the scene, which will function as our “liquid”, since it removes the jagged and rough lines. By integrating smooth-minimums into our distance functions in raymarching, we can create smoothly blended liquid, that react like liquid particles. There are many different kinds of smooth-minimums, but we decided to just go with a polynomial approach as that was the easiest to implement.</p><p id="65d6b088-bb58-44f8-9151-c800eafdecac" class="">
+</p><figure id="c44a2647-e72c-40bc-8877-53a0288c87b9" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%204.png"><img style="width:240px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/Untitled%204.png"/></a></figure><p id="7e3a5c9f-f897-4933-80ec-230a3ce730e7" class=""><em>Example Smoothed Minimum between a rectangle and a sphere. Notice how they smoothly connect between each other and is always within the span of their respective BVH denoted in light blue.</em></p><p id="669bffde-142d-4598-8ffe-a540091d1c70" class="">
+</p><p id="bb0650c0-a4bc-4dff-a37f-8031208e546e" class="">Using raymarching as our rendering method, and smooth-mins to create generally believable liquid, we end up with this outcome, which was to our satisfaction. We do admit that it could look more realistic, either through a more detailed shader, or with more particles, but as mentioned earlier, our priority was that the game could run smoothly on a laptop with GPU, rather than aim to be the most accurate liquid model.</p><p id="bbb82eda-057b-4acd-8c6c-a597b386d3fc" class="">
+</p><figure id="671945f7-1f4b-44d2-804f-df241d9843d3" class="image"><a href="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/liquid-cube.gif"><img style="width:599.9999389648438px" src="CS%20184%20Spring%202024%20Final%20Writeup%20d8851b237d8846baa6b5e3dbd0c517b3/liquid-cube.gif"/></a></figure><p id="f859d5c2-9c6a-4ebe-913e-6ee2c25a057a" class="">
+</p><h2 id="694cfa2f-d6c7-4f49-adf0-2c1933ca9706" class="">Lessons Learned</h2><p id="a1bbcc87-ac75-4b59-b3a6-2b152e7f6a56" class="">Using a totally different framework than what we implemented in class definitely increased the initial learning curve, but we found it easier to work with as we got to know the structure of Unity more - specifically the shader side of it. Furthermore, we learned that in order to render models in real time, there has to be a lot of trade offs based on the level of detail, even with GPU acceleration and trying to implement more efficient algorithms. Like the mesh project, it was extremely important to maintain numerical stability of the physical side between the particles for a realistic result. </p><p id="03d51af3-2693-4008-896d-40ab2ee4da37" class="">
+</p><p id="111101eb-4c29-45b7-ab6c-423fcfe88799" class="">Collision handling was also much harder to implement than we expected. What we thought would only take a day ended up taking basically an entire week to get right - and even by our final deliverable, definitely could have been better. For non-normal shapes, it’s extremely difficult to calculate forward-Euler simulations as calculating the normal vector and the necessary reflection of velocities varied at each angle.</p><h2 id="9624d398-d7ab-4347-9b48-cedb546dcd73" class="">Results</h2><h2 id="3050f91a-861d-48df-a5a0-3712ed251807" class="">Division of Tasks</h2><p id="fda985d1-45c4-4834-bd3c-e2ad13f8923e" class="">David</p><ul id="6e9e2c73-8207-4327-9e85-3529b89da7c8" class="bulleted-list"><li style="list-style-type:disc">Implemented the physical basis of the liquid simulation<ul id="9cbf32e0-9179-4623-a265-dfc56dfe256f" class="bulleted-list"><li style="list-style-type:circle">Allowed for the ability to use GPU to accelerate the calculations needed for liquid sim in Unity.</li></ul><ul id="69bd5284-8919-49cb-bd6b-a88635e4008e" class="bulleted-list"><li style="list-style-type:circle">Implemented math for all smoothing kernels and physical properties (density, pressure, viscosity)</li></ul></li></ul><ul id="499b367c-c79d-4224-b243-133c56c08953" class="bulleted-list"><li style="list-style-type:disc">Implemented collision with other objects<ul id="86620ad2-2202-41a5-9dcd-1e1936c17c31" class="bulleted-list"><li style="list-style-type:circle">Sphere collision</li></ul><ul id="95479ae7-6183-460c-a7b2-10aa8c152290" class="bulleted-list"><li style="list-style-type:circle">Cube Collision </li></ul></li></ul><ul id="f72c7500-9b5d-40c8-bfd1-428f7a3cfb78" class="bulleted-list"><li style="list-style-type:disc">Handled all liquid raytracing including all of raymarching and smooth-min implementations.</li></ul><p id="1ef06ffa-bf04-478a-91f5-c30964e0609a" class="">Hailey</p><ul id="74760d7c-adfe-44fc-8e1f-f70cabe984f1" class="bulleted-list"><li style="list-style-type:disc">Created the custom 3D models and animations (gate mechanic and static platform)</li></ul><ul id="2e8dc4b0-c952-46ab-a5b1-75a89926df2a" class="bulleted-list"><li style="list-style-type:disc">Created bounding boxes for containers to handle collisions</li></ul><p id="38a25016-047d-45c9-8ac0-fbb3c7c7ca8a" class="">Jackie</p><ul id="e1d597b0-1469-4371-90ad-43623bf0a18d" class="bulleted-list"><li style="list-style-type:disc">Implemented demo level</li></ul><ul id="0a8b5a96-2182-4984-a216-0cc9f14f310a" class="bulleted-list"><li style="list-style-type:disc">Implemented level 1 and 2</li></ul><ul id="2557bbf1-2a4f-4e31-ae1d-4abdac655f7c" class="bulleted-list"><li style="list-style-type:disc">Work with water/particle collisions with sphere to fill water gauge</li></ul><ul id="d6685aa2-ae56-4c07-8bfc-796107623a76" class="bulleted-list"><li style="list-style-type:disc">Implement reset button</li></ul><p id="4fbf3613-fa84-4349-bd19-5857176305cc" class="">Jesse</p><ul id="50f1456a-7226-40a8-9e1c-4665b2e447fa" class="bulleted-list"><li style="list-style-type:disc">parts of presentation</li></ul><ul id="4539ee0f-64f1-40d4-b596-50a3f33589ac" class="bulleted-list"><li style="list-style-type:disc">main menu and level selector</li></ul><ul id="e3a44efb-5f2e-452a-b944-8b197ae06249" class="bulleted-list"><li style="list-style-type:disc">icon</li></ul><h2 id="55d20049-4202-4c69-8e1c-99096f11d308" class="">Works Cited</h2><p id="0237c193-2697-4e94-a611-90122967e7a5" class="">[1] “Particle-Based Fluid Simulation for Interactive Applications” <a href="https://matthias-research.github.io/pages/publications/sca03.pdf">https://matthias-research.github.io/pages/publications/sca03.pdf</a></p><p id="f19b69d5-d3f3-4f66-b740-63ec5ad66918" class="">[2] Raymarching image <a href="https://developer.nvidia.com/gpugems/gpugems2/part-i-geometric-complexity/chapter-8-pixel-displacement-mapping-distance-functions">https://developer.nvidia.com/gpugems/gpugems2/part-i-geometric-complexity/chapter-8-pixel-displacement-mapping-distance-functions</a></p><p id="ec9f26eb-4af8-4407-a721-acde26d85fee" class="">[3] Raymarching algorithm explanation <a href="https://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/#the-raymarching-algorithm">https://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/#the-raymarching-algorithm</a></p><p id="231de06c-ddde-4493-89a4-f5eb9a6f5403" class="">[4] Smooth Minimums <a href="https://iquilezles.org/articles/smin/">https://iquilezles.org/articles/smin/</a></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
